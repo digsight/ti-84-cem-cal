@@ -22,7 +22,7 @@ element_masses = {
 }
 
 def find_mass(symbol):
-    return element_masses.get(symbol)
+    return element_masses.get(symbol, None)
 
 def get_float(prompt):
     while True:
@@ -42,9 +42,9 @@ def get_element(prompt):
     symbol = input(prompt)
     mass = find_mass(symbol)
     if mass is None:
-        print(f"Element '{symbol}' not found.")
+        print("Element not found.")
         return None, None
-    atoms = get_int(f"How many atoms of {symbol}? ")
+    atoms = get_int("How many atoms of " + symbol + "? ")
     return mass, atoms
 
 def molar_mass_calc():
@@ -55,7 +55,7 @@ def molar_mass_calc():
         return
 
     for i in range(num_elements):
-        mass, atoms = get_element(f"Enter symbol for element {i+1}: ")
+        mass, atoms = get_element("Enter symbol for element " + str(i + 1) + ": ")
         if mass is None:
             return
         total_mass += mass * atoms
@@ -65,65 +65,39 @@ def molar_mass_calc():
     volume = mol * 22.4
 
     print("\n--- Results ---")
-    print(f"Molar mass = {round(total_mass, 3)} g/mol")
-    print(f"Mass = {round(final_mass, 3)} grams")
-    print(f"Volume at STP = {round(volume, 3)} L")
+    print("Molar mass = " + str(round(total_mass, 3)) + " g/mol")
+    print("Mass = " + str(round(final_mass, 3)) + " grams")
+    print("Volume at STP = " + str(round(volume, 3)) + " L")
 
-def mass_from_moles():
-    molar_mass = get_float("Enter molar mass: ")
-    moles = get_float("Enter moles: ")
-    print(f"Mass = {round(molar_mass * moles, 3)} grams")
+def main():
+    while True:
+        print("\n--- Chemistry Calculator ---")
+        print("1 - Molar Mass from 1-2 elements")
+        print("2 - Mass from Moles")
+        print("3 - Moles from Mass")
+        print("4 - Volume from Moles (gas at STP)")
+        print("5 - Moles from Volume (gas at STP)")
+        print("6 - Percent Composition (2 elements)")
 
-def moles_from_mass():
-    mass = get_float("Enter mass (grams): ")
-    molar_mass = get_float("Enter molar mass: ")
-    print(f"Moles = {round(mass / molar_mass, 3)}")
+        choice = input("Choose an option (1-6): ")
 
-def volume_from_moles():
-    moles = get_float("Enter moles: ")
-    print(f"Volume at STP = {round(moles * 22.4, 3)} L")
+        if choice == "1":
+            molar_mass_calc()
+        elif choice == "2":
+            mass_from_moles()
+        elif choice == "3":
+            moles_from_mass()
+        elif choice == "4":
+            volume_from_moles()
+        elif choice == "5":
+            moles_from_volume()
+        elif choice == "6":
+            percent_composition()
+        else:
+            print("Invalid option.")
 
-def moles_from_volume():
-    volume = get_float("Enter volume (L): ")
-    print(f"Moles = {round(volume / 22.4, 3)}")
+        again = input("Run another calculation? (y/n): ")
+        if again != "y":
+            break
 
-def percent_composition():
-    print("For two elements only:")
-    m1 = get_float("Mass of element 1: ")
-    a1 = get_int("Number of atoms of element 1: ")
-    m2 = get_float("Mass of element 2: ")
-    a2 = get_int("Number of atoms of element 2: ")
-    total = m1 * a1 + m2 * a2
-    print(f"Percent of element 1: {round((m1 * a1 / total) * 100, 2)}%")
-    print(f"Percent of element 2: {round((m2 * a2 / total) * 100, 2)}%")
-
-# MAIN LOOP
-while True:
-    print("\n--- Chemistry Calculator ---")
-    print("1 - Molar Mass from 1-2 elements")
-    print("2 - Mass from Moles")
-    print("3 - Moles from Mass")
-    print("4 - Volume from Moles (gas at STP)")
-    print("5 - Moles from Volume (gas at STP)")
-    print("6 - Percent Composition (2 elements)")
-
-    choice = input("Choose an option (1-6): ")
-
-    if choice == "1":
-        molar_mass_calc()
-    elif choice == "2":
-        mass_from_moles()
-    elif choice == "3":
-        moles_from_mass()
-    elif choice == "4":
-        volume_from_moles()
-    elif choice == "5":
-        moles_from_volume()
-    elif choice == "6":
-        percent_composition()
-    else:
-        print("Invalid option.")
-
-    again = input("Run another calculation? (y/n): ")
-    if again != "y":
-        break
+main()
