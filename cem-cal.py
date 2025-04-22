@@ -1,129 +1,175 @@
-#V2
+#V3
 element_masses = {
-    "H": 1.008, "He": 4.003, "Li": 6.94, "Be": 9.012, "B": 10.81, "C": 12.011,
-    "N": 14.007, "O": 15.999, "F": 18.998, "Ne": 20.180, "Na": 22.99, "Mg": 24.305,
-    "Al": 26.982, "Si": 28.085, "P": 30.974, "S": 32.06, "Cl": 35.45, "Ar": 39.948,
-    "K": 39.098, "Ca": 40.078, "Sc": 44.956, "Ti": 47.867, "V": 50.942, "Cr": 51.996,
-    "Mn": 54.938, "Fe": 55.845, "Co": 58.933, "Ni": 58.693, "Cu": 63.546, "Zn": 65.38,
-    "Ga": 69.723, "Ge": 72.63, "As": 74.922, "Se": 78.971, "Br": 79.904, "Kr": 83.798,
-    "Rb": 85.468, "Sr": 87.62, "Y": 88.906, "Zr": 91.224, "Nb": 92.906, "Mo": 95.95,
-    "Tc": 98, "Ru": 101.07, "Rh": 102.91, "Pd": 106.42, "Ag": 107.87, "Cd": 112.41,
-    "In": 114.82, "Sn": 118.71, "Sb": 121.76, "Te": 127.6, "I": 126.9, "Xe": 131.29,
-    "Cs": 132.91, "Ba": 137.33, "La": 138.91, "Ce": 140.12, "Pr": 140.91, "Nd": 144.24,
-    "Pm": 145, "Sm": 150.36, "Eu": 151.96, "Gd": 157.25, "Tb": 158.93, "Dy": 162.5,
-    "Ho": 164.93, "Er": 167.26, "Tm": 168.93, "Yb": 173.05, "Lu": 174.97, "Hf": 178.49,
-    "Ta": 180.95, "W": 183.84, "Re": 186.21, "Os": 190.23, "Ir": 192.22, "Pt": 195.08,
-    "Au": 196.97, "Hg": 200.59, "Tl": 204.38, "Pb": 207.2, "Bi": 208.98, "Po": 209,
-    "At": 210, "Rn": 222, "Fr": 223, "Ra": 226, "Ac": 227, "Th": 232.04,
-    "Pa": 231.04, "U": 238.03, "Np": 237, "Pu": 244, "Am": 243, "Cm": 247,
-    "Bk": 247, "Cf": 251, "Es": 252, "Fm": 257, "Md": 258, "No": 259,
-    "Lr": 262, "Rf": 267, "Db": 270, "Sg": 271, "Bh": 270, "Hs": 277,
-    "Mt": 278, "Ds": 281, "Rg": 282, "Cn": 285, "Nh": 286, "Fl": 289,
-    "Mc": 290, "Lv": 293, "Ts": 294, "Og": 294
+    "h": 1.008, "he": 4.003, "li": 6.94, "be": 9.012, "b": 10.81, "c": 12.011,
+    "n": 14.007, "o": 15.999, "f": 18.998, "ne": 20.180, "na": 22.99, "mg": 24.305,
+    "al": 26.982, "si": 28.085, "p": 30.974, "s": 32.06, "cl": 35.45, "ar": 39.948,
+    "k": 39.098, "ca": 40.078, "sc": 44.956, "ti": 47.867, "v": 50.942, "cr": 51.996,
+    "mn": 54.938, "fe": 55.845, "co": 58.933, "ni": 58.693, "cu": 63.546, "zn": 65.38,
+    "ga": 69.723, "ge": 72.63, "as": 74.922, "se": 78.971, "br": 79.904, "kr": 83.798,
+    "rb": 85.468, "sr": 87.62, "y": 88.906, "zr": 91.224, "nb": 92.906, "mo": 95.95,
+    "tc": 98, "ru": 101.07, "rh": 102.91, "pd": 106.42, "ag": 107.87, "cd": 112.41,
+    "in": 114.82, "sn": 118.71, "sb": 121.76, "te": 127.6, "i": 126.9, "xe": 131.29,
+    "cs": 132.91, "ba": 137.33, "la": 138.91, "ce": 140.12, "pr": 140.91, "nd": 144.24,
+    "pm": 145, "sm": 150.36, "eu": 151.96, "gd": 157.25, "tb": 158.93, "dy": 162.5,
+    "ho": 164.93, "er": 167.26, "tm": 168.93, "yb": 173.05, "lu": 174.97, "hf": 178.49,
+    "ta": 180.95, "w": 183.84, "re": 186.21, "os": 190.23, "ir": 192.22, "pt": 195.08,
+    "au": 196.97, "hg": 200.59, "tl": 204.38, "pb": 207.2, "bi": 208.98, "po": 209,
+    "at": 210, "rn": 222, "fr": 223, "ra": 226, "ac": 227, "th": 232.04,
+    "pa": 231.04, "u": 238.03, "np": 237, "pu": 244, "am": 243, "cm": 247,
+    "bk": 247, "cf": 251, "es": 252, "fm": 257, "md": 258, "no": 259,
+    "lr": 262, "rf": 267, "db": 270, "sg": 271, "bh": 270, "hs": 277,
+    "mt": 278, "ds": 281, "rg": 282, "cn": 285, "nh": 286, "fl": 289,
+    "mc": 290, "lv": 293, "ts": 294, "og": 294
 }
 
-def find_mass(symbol):
-    return element_masses.get(symbol, None)
-
 def get_float(prompt):
+    """Get a valid float input from user with error handling."""
     while True:
         try:
             return float(input(prompt))
         except ValueError:
-            print("Invalid number. Try again.")
+            print("Invalid number. Please try again.")
 
 def get_int(prompt):
+    """Get a valid integer input from user with error handling."""
     while True:
         try:
             return int(input(prompt))
         except ValueError:
-            print("Invalid integer. Try again.")
+            print("Invalid integer. Please try again.")
 
-def get_element(prompt):
-    symbol = input(prompt)
-    mass = find_mass(symbol)
-    if mass is None:
-        print("Element not found.")
-        return None, None
-    atoms = get_int("How many atoms of " + symbol + "? ")
-    return mass, atoms
+def get_element_data():
+    """Get element symbol and number of atoms from user."""
+    while True:
+        symbol = input("Enter element symbol: ").strip().capitalize()
+        if symbol not in ELEMENT_MASSES:
+            print(f"Error: Element '{symbol}' not found. Try again or type 'exit' to cancel.")
+            if symbol.lower() == 'exit':
+                return None
+            continue
+        
+        atoms = get_int(f"How many atoms of {symbol}? ")
+        if atoms <= 0:
+            print("Number of atoms must be positive.")
+            continue
+        
+        return ELEMENT_MASSES[symbol], atoms
 
-def molar_mass_calc():
-    total_mass = 0
-    num_elements = get_int("How many elements? (1 or 2): ")
-    if num_elements not in [1, 2]:
-        print("Only 1 or 2 elements supported.")
+def calculate_molar_mass():
+    """Calculate and display molar mass and related quantities."""
+    print("\n--- Molar Mass Calculator ---")
+    num_elements = get_int("How many elements in the compound? ")
+    if num_elements <= 0:
+        print("Number of elements must be positive.")
         return
-    for i in range(num_elements):
-        mass, atoms = get_element("Enter symbol for element " + str(i + 1) + ": ")
-        if mass is None:
+
+    total_mass = 0.0
+    for i in range(1, num_elements + 1):
+        print(f"\nElement {i}:")
+        element_data = get_element_data()
+        if element_data is None:
             return
+        mass, atoms = element_data
         total_mass += mass * atoms
-    mol = get_float("Enter number of moles: ")
+
+    if total_mass <= 0:
+        print("Error: Total mass must be positive.")
+        return
+
+    mol = get_float("\nEnter number of moles: ")
     final_mass = total_mass * mol
     volume = mol * 22.4
-    print("")
-    print("--- Results ---")
-    print("Molar mass = " + str(round(total_mass, 3)) + " g/mol")
-    print("Mass = " + str(round(final_mass, 3)) + " grams")
-    print("Volume at STP = " + str(round(volume, 3)) + " L")
 
-def mass_from_moles():
-    molar_mass = get_float("Enter molar mass: ")
+    print("\n--- Results ---")
+    print(f"Molar mass = {total_mass:.3f} g/mol")
+    print(f"Mass = {final_mass:.3f} grams")
+    print(f"Volume at STP = {volume:.3f} L")
+
+def calculate_mass_from_moles():
+    """Calculate mass from given molar mass and moles."""
+    print("\n--- Mass from Moles Calculator ---")
+    molar_mass = get_float("Enter molar mass (g/mol): ")
     moles = get_float("Enter moles: ")
-    print("Mass = " + str(round(molar_mass * moles, 3)) + " grams")
+    print(f"\nMass = {molar_mass * moles:.3f} grams")
 
-def moles_from_mass():
+def calculate_moles_from_mass():
+    """Calculate moles from given mass and molar mass."""
+    print("\n--- Moles from Mass Calculator ---")
     mass = get_float("Enter mass (grams): ")
-    molar_mass = get_float("Enter molar mass: ")
-    print("Moles = " + str(round(mass / molar_mass, 3)))
+    molar_mass = get_float("Enter molar mass (g/mol): ")
+    if molar_mass == 0:
+        print("Error: Molar mass cannot be zero.")
+        return
+    print(f"\nMoles = {mass / molar_mass:.3f}")
 
-def volume_from_moles():
+def calculate_volume_from_moles():
+    """Calculate gas volume at STP from moles."""
+    print("\n--- Volume from Moles Calculator ---")
     moles = get_float("Enter moles: ")
-    print("Volume at STP = " + str(round(moles * 22.4, 3)) + " L")
+    print(f"\nVolume at STP = {moles * 22.4:.3f} L")
 
-def moles_from_volume():
+def calculate_moles_from_volume():
+    """Calculate moles from gas volume at STP."""
+    print("\n--- Moles from Volume Calculator ---")
     volume = get_float("Enter volume (L): ")
-    print("Moles = " + str(round(volume / 22.4, 3)))
+    if volume <= 0:
+        print("Volume must be positive.")
+        return
+    print(f"\nMoles = {volume / 22.4:.3f}")
 
-def percent_composition():
-    mass1 = get_float("Enter mass of element 1: ")
-    atoms1 = get_int("Enter number of atoms of element 1: ")
-    mass2 = get_float("Enter mass of element 2: ")
-    atoms2 = get_int("Enter number of atoms of element 2: ")
-    total_mass = mass1 * atoms1 + mass2 * atoms2
+def calculate_percent_composition():
+    """Calculate percent composition of a two-element compound."""
+    print("\n--- Percent Composition Calculator ---")
+    print("Element 1:")
+    mass1, atoms1 = get_element_data()
+    print("\nElement 2:")
+    mass2, atoms2 = get_element_data()
+
+    total_mass = (mass1 * atoms1) + (mass2 * atoms2)
+    if total_mass <= 0:
+        print("Error: Total mass must be positive.")
+        return
+
     pc1 = (mass1 * atoms1 / total_mass) * 100
     pc2 = (mass2 * atoms2 / total_mass) * 100
-    print("Percent Composition of Element 1 = " + str(round(pc1, 2)) + " %")
-    print("Percent Composition of Element 2 = " + str(round(pc2, 2)) + " %")
+
+    print("\n--- Results ---")
+    print(f"Percent Composition of Element 1 = {pc1:.2f}%")
+    print(f"Percent Composition of Element 2 = {pc2:.2f}%")
 
 def main():
+    """Main program loop with menu interface."""
     while True:
-        print("")
-        print("--- Chemistry Calculator ---")
-        print("1 - Molar Mass from 1-2 elements")
-        print("2 - Mass from Moles")
-        print("3 - Moles from Mass")
-        print("4 - Volume from Moles (gas at STP)")
-        print("5 - Moles from Volume (gas at STP)")
-        print("6 - Percent Composition (2 elements)")
-        choice = input("Choose an option (1-6): ")
+        print("\n=== Chemistry Calculator ===")
+        print("1. Molar Mass Calculator")
+        print("2. Mass from Moles")
+        print("3. Moles from Mass")
+        print("4. Volume from Moles (gas at STP)")
+        print("5. Moles from Volume (gas at STP)")
+        print("6. Percent Composition (2 elements)")
+        print("7. Exit")
+
+        choice = input("\nChoose an option (1-7): ").strip()
+
         if choice == "1":
-            molar_mass_calc()
+            calculate_molar_mass()
         elif choice == "2":
-            mass_from_moles()
+            calculate_mass_from_moles()
         elif choice == "3":
-            moles_from_mass()
+            calculate_moles_from_mass()
         elif choice == "4":
-            volume_from_moles()
+            calculate_volume_from_moles()
         elif choice == "5":
-            moles_from_volume()
+            calculate_moles_from_volume()
         elif choice == "6":
-            percent_composition()
-        else:
-            print("Invalid option.")
-        again = input("Run another calculation? (y/n): ")
-        if again != "y":
+            calculate_percent_composition()
+        elif choice == "7":
+            print("Exiting program. Goodbye!")
             break
+        else:
+            print("Invalid option. Please choose 1-7.")
+
+        if choice != "7":
+            input("\nPress Enter to continue...")
 
 main()
