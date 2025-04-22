@@ -1,3 +1,4 @@
+#V2
 element_masses = {
     "H": 1.008, "He": 4.003, "Li": 6.94, "Be": 9.012, "B": 10.81, "C": 12.011,
     "N": 14.007, "O": 15.999, "F": 18.998, "Ne": 20.180, "Na": 22.99, "Mg": 24.305,
@@ -53,34 +54,60 @@ def molar_mass_calc():
     if num_elements not in [1, 2]:
         print("Only 1 or 2 elements supported.")
         return
-
     for i in range(num_elements):
         mass, atoms = get_element("Enter symbol for element " + str(i + 1) + ": ")
         if mass is None:
             return
         total_mass += mass * atoms
-
     mol = get_float("Enter number of moles: ")
     final_mass = total_mass * mol
     volume = mol * 22.4
-
-    print("\n--- Results ---")
+    print("")
+    print("--- Results ---")
     print("Molar mass = " + str(round(total_mass, 3)) + " g/mol")
     print("Mass = " + str(round(final_mass, 3)) + " grams")
     print("Volume at STP = " + str(round(volume, 3)) + " L")
 
+def mass_from_moles():
+    molar_mass = get_float("Enter molar mass: ")
+    moles = get_float("Enter moles: ")
+    print("Mass = " + str(round(molar_mass * moles, 3)) + " grams")
+
+def moles_from_mass():
+    mass = get_float("Enter mass (grams): ")
+    molar_mass = get_float("Enter molar mass: ")
+    print("Moles = " + str(round(mass / molar_mass, 3)))
+
+def volume_from_moles():
+    moles = get_float("Enter moles: ")
+    print("Volume at STP = " + str(round(moles * 22.4, 3)) + " L")
+
+def moles_from_volume():
+    volume = get_float("Enter volume (L): ")
+    print("Moles = " + str(round(volume / 22.4, 3)))
+
+def percent_composition():
+    mass1 = get_float("Enter mass of element 1: ")
+    atoms1 = get_int("Enter number of atoms of element 1: ")
+    mass2 = get_float("Enter mass of element 2: ")
+    atoms2 = get_int("Enter number of atoms of element 2: ")
+    total_mass = mass1 * atoms1 + mass2 * atoms2
+    pc1 = (mass1 * atoms1 / total_mass) * 100
+    pc2 = (mass2 * atoms2 / total_mass) * 100
+    print("Percent Composition of Element 1 = " + str(round(pc1, 2)) + " %")
+    print("Percent Composition of Element 2 = " + str(round(pc2, 2)) + " %")
+
 def main():
     while True:
-        print("\n--- Chemistry Calculator ---")
+        print("")
+        print("--- Chemistry Calculator ---")
         print("1 - Molar Mass from 1-2 elements")
         print("2 - Mass from Moles")
         print("3 - Moles from Mass")
         print("4 - Volume from Moles (gas at STP)")
         print("5 - Moles from Volume (gas at STP)")
         print("6 - Percent Composition (2 elements)")
-
         choice = input("Choose an option (1-6): ")
-
         if choice == "1":
             molar_mass_calc()
         elif choice == "2":
@@ -95,7 +122,6 @@ def main():
             percent_composition()
         else:
             print("Invalid option.")
-
         again = input("Run another calculation? (y/n): ")
         if again != "y":
             break
