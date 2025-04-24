@@ -1,5 +1,4 @@
-#V3
-element_masses = {
+ELEMENT_MASSES = {
     "h": 1.008, "he": 4.003, "li": 6.94, "be": 9.012, "b": 10.81, "c": 12.011,
     "n": 14.007, "o": 15.999, "f": 18.998, "ne": 20.180, "na": 22.99, "mg": 24.305,
     "al": 26.982, "si": 28.085, "p": 30.974, "s": 32.06, "cl": 35.45, "ar": 39.948,
@@ -23,40 +22,36 @@ element_masses = {
 }
 
 def get_float(prompt):
-    """Get a valid float input from user with error handling."""
     while True:
         try:
             return float(input(prompt))
-        except ValueError:
+        except:
             print("Invalid number. Please try again.")
 
 def get_int(prompt):
-    """Get a valid integer input from user with error handling."""
     while True:
         try:
             return int(input(prompt))
-        except ValueError:
+        except:
             print("Invalid integer. Please try again.")
 
 def get_element_data():
-    """Get element symbol and number of atoms from user."""
     while True:
-        symbol = input("Enter element symbol: ").strip().capitalize()
+        symbol = input("Enter element symbol: ").strip().lower()
         if symbol not in ELEMENT_MASSES:
-            print(f"Error: Element '{symbol}' not found. Try again or type 'exit' to cancel.")
-            if symbol.lower() == 'exit':
+            print("Error: Element '" + symbol + "' not found. Try again or type 'exit' to cancel.")
+            if symbol == 'exit':
                 return None
             continue
-        
-        atoms = get_int(f"How many atoms of {symbol}? ")
+
+        atoms = get_int("How many atoms of " + symbol + "? ")
         if atoms <= 0:
             print("Number of atoms must be positive.")
             continue
-        
+
         return ELEMENT_MASSES[symbol], atoms
 
 def calculate_molar_mass():
-    """Calculate and display molar mass and related quantities."""
     print("\n--- Molar Mass Calculator ---")
     num_elements = get_int("How many elements in the compound? ")
     if num_elements <= 0:
@@ -65,7 +60,7 @@ def calculate_molar_mass():
 
     total_mass = 0.0
     for i in range(1, num_elements + 1):
-        print(f"\nElement {i}:")
+        print("\nElement " + str(i) + ":")
         element_data = get_element_data()
         if element_data is None:
             return
@@ -81,49 +76,51 @@ def calculate_molar_mass():
     volume = mol * 22.4
 
     print("\n--- Results ---")
-    print(f"Molar mass = {total_mass:.3f} g/mol")
-    print(f"Mass = {final_mass:.3f} grams")
-    print(f"Volume at STP = {volume:.3f} L")
+    print("Molar mass = " + str(round(total_mass, 3)) + " g/mol")
+    print("Mass = " + str(round(final_mass, 3)) + " grams")
+    print("Volume at STP = " + str(round(volume, 3)) + " L")
 
 def calculate_mass_from_moles():
-    """Calculate mass from given molar mass and moles."""
     print("\n--- Mass from Moles Calculator ---")
     molar_mass = get_float("Enter molar mass (g/mol): ")
     moles = get_float("Enter moles: ")
-    print(f"\nMass = {molar_mass * moles:.3f} grams")
+    print("\nMass = " + str(round(molar_mass * moles, 3)) + " grams")
 
 def calculate_moles_from_mass():
-    """Calculate moles from given mass and molar mass."""
     print("\n--- Moles from Mass Calculator ---")
     mass = get_float("Enter mass (grams): ")
     molar_mass = get_float("Enter molar mass (g/mol): ")
     if molar_mass == 0:
         print("Error: Molar mass cannot be zero.")
         return
-    print(f"\nMoles = {mass / molar_mass:.3f}")
+    print("\nMoles = " + str(round(mass / molar_mass, 3)))
 
 def calculate_volume_from_moles():
-    """Calculate gas volume at STP from moles."""
     print("\n--- Volume from Moles Calculator ---")
     moles = get_float("Enter moles: ")
-    print(f"\nVolume at STP = {moles * 22.4:.3f} L")
+    print("\nVolume at STP = " + str(round(moles * 22.4, 3)) + " L")
 
 def calculate_moles_from_volume():
-    """Calculate moles from gas volume at STP."""
     print("\n--- Moles from Volume Calculator ---")
     volume = get_float("Enter volume (L): ")
     if volume <= 0:
         print("Volume must be positive.")
         return
-    print(f"\nMoles = {volume / 22.4:.3f}")
+    print("\nMoles = " + str(round(volume / 22.4, 3)))
 
 def calculate_percent_composition():
-    """Calculate percent composition of a two-element compound."""
     print("\n--- Percent Composition Calculator ---")
     print("Element 1:")
-    mass1, atoms1 = get_element_data()
+    element1 = get_element_data()
+    if element1 is None:
+        return
+    mass1, atoms1 = element1
+
     print("\nElement 2:")
-    mass2, atoms2 = get_element_data()
+    element2 = get_element_data()
+    if element2 is None:
+        return
+    mass2, atoms2 = element2
 
     total_mass = (mass1 * atoms1) + (mass2 * atoms2)
     if total_mass <= 0:
@@ -134,11 +131,10 @@ def calculate_percent_composition():
     pc2 = (mass2 * atoms2 / total_mass) * 100
 
     print("\n--- Results ---")
-    print(f"Percent Composition of Element 1 = {pc1:.2f}%")
-    print(f"Percent Composition of Element 2 = {pc2:.2f}%")
+    print("Percent Composition of Element 1 = " + str(round(pc1, 2)) + "%")
+    print("Percent Composition of Element 2 = " + str(round(pc2, 2)) + "%")
 
 def main():
-    """Main program loop with menu interface."""
     while True:
         print("\n=== Chemistry Calculator ===")
         print("1. Molar Mass Calculator")
